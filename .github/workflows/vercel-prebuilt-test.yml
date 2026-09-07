@@ -1,0 +1,55 @@
+﻿name: Test Vercel Prebuilt
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Build Vercel Prebuilt (No Deploy)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium
+
+      - name: Build project and prerender
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Link Vercel project
+        run: vercel link --yes --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Build Vercel prebuilt output
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Verify Vercel output
+        run: |
+          echo "=== VERCEL OUTPUT ==="
+          test -d .vercel/output
+          find .vercel/output -maxdepth 3 -type f | head -100
+          echo "=== PREBUILT OUTPUT EXISTS ==="
