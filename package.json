@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && npm run clean:dist-images && npm run postbuild",
-    "build:prod": "rm -rf node_modules/.vite-temp && vite build && npm run clean:dist-images && npm run postbuild",
+    "build": "vite build && npm run clean:dist-images",
+    "build:prod": "rm -rf node_modules/.vite-temp && vite build && npm run clean:dist-images",
     "postbuild": "node scripts/postbuild.js",
     "lint": "eslint .",
     "preview": "vite preview",

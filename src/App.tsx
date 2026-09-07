@@ -379,7 +379,7 @@ function App() {
                 <Link to="/" className="flex items-center gap-3">
                   <OptimizedImage src="/images/logo.png" alt="شعار قبيلة النعيم" className="w-12 h-12 rounded-full object-cover border-2 border-[#D4AF37]" />
                   <div className="hidden sm:block">
-                    <h1 className="font-bold text-lg text-white">النعيم <span className="text-[#D4AF37]">٥١٥</span></h1>
+                    <div className="font-bold text-lg text-white">النعيم <span className="text-[#D4AF37]">٥١٥</span></div>
                     <p className="text-xs text-gray-400">أهل الصفرا</p>
                   </div>
                 </Link>

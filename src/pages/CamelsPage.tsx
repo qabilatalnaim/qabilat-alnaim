@@ -268,9 +268,9 @@ export default function CamelsPage() {
                 <div className="text-center mb-10">
                   <span className="text-7xl">🐪</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#D4AF37] mb-8 text-center">
+                <h1 className="text-3xl md:text-4xl font-bold text-[#D4AF37] mb-8 text-center">
                   إبل قبيلة السادة النعيم | أهل الصفرا
-                </h2>
+                </h1>
                 <div className="text-gray-200 text-lg leading-loose space-y-6 text-justify">
                   <p>
                     منذ أن عرفت البادية حياة الترحال، كانت الإبل رفيقة الإنسان في أسفاره، وذخيرته في أيام الشدة، وعنوانًا للصبر والقوة والتحمل. وفي تراث قبيلة السادة النعيم، تحتل الإبل مكانة راسخة في الذاكرة الشعبية، لما تمثله من أصالةٍ متوارثة، وارتباطٍ عميق بحياة البادية ومراعيها ومواردها، وما تحمله من قيم الكرم والنجدة والصبر والوفاء.
