@@ -39,8 +39,6 @@ Thumbs.db
 *.local
 *.tmp
 
-# Wrangler (Cloudflare - kept for reference)
-.wrangler/
 .dev.vars
 
 # Vercel
