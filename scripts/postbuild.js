@@ -17,6 +17,7 @@ import { copyFileSync, existsSync, readFileSync, writeFileSync, mkdirSync } from
 import { resolve, dirname, extname, join, normalize } from 'path'
 import { fileURLToPath } from 'url'
 import { chromium } from 'playwright'
+import sparticuzChromium from '@sparticuz/chromium'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const projectDir = resolve(__dirname, '..')
@@ -197,10 +198,18 @@ async function main() {
     let browser
 
     try {
-      browser = await chromium.launch({
-        headless: true,
-        channel: 'chromium',
-      })
+      if (process.env.VERCEL === '1') {
+        browser = await chromium.launch({
+          args: sparticuzChromium.args,
+          executablePath: await sparticuzChromium.executablePath(),
+          headless: true,
+        })
+      } else {
+        browser = await chromium.launch({
+          headless: true,
+          channel: 'chromium',
+        })
+      }
 
       console.log('\n🚀 Starting prerender...\n')
 
