@@ -200,7 +200,7 @@ async function main() {
     try {
       if (process.env.VERCEL === '1') {
         browser = await chromium.launch({
-          args: sparticuzChromium.args,
+          args: sparticuzChromium.args.filter((arg) => arg !== '--single-process'),
           executablePath: await sparticuzChromium.executablePath(),
           headless: true,
         })
