@@ -199,6 +199,7 @@ async function main() {
     try {
       browser = await chromium.launch({
         headless: true,
+        channel: 'chromium',
       })
 
       console.log('\n🚀 Starting prerender...\n')
