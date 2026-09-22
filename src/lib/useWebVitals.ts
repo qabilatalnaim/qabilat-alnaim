@@ -99,7 +99,6 @@ export function useWebVitals(onReport?: (entry: VitalEntry) => void) {
     const handler = (entry: VitalEntry) => {
       if (process.env.NODE_ENV === 'development') {
         const emoji = entry.rating === 'good' ? '✅' : entry.rating === 'needs-improvement' ? '⚠️' : '❌'
-        // eslint-disable-next-line no-console
         console.log(`${emoji} ${entry.name}: ${entry.value.toFixed(0)}ms (${entry.rating})`)
       }
       onReport?.(entry)

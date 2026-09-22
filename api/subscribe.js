@@ -2,9 +2,6 @@
 // Newsletter subscription endpoint — stores in Vercel KV / KV-rest compatible storage
 // Falls back to logging (dev mode) if no storage configured.
 
-const KV_URL = process.env.KV_REST_API_URL
-const KV_TOKEN = process.env.KV_REST_API_TOKEN
-
 // Simple in-memory fallback (resets on cold start, fine for dev)
 const memoryStore = new Set()
 
@@ -32,6 +29,9 @@ export default async function handler(req, res) {
   }
 
   try {
+    const KV_URL = process.env.KV_REST_API_URL
+    const KV_TOKEN = process.env.KV_REST_API_TOKEN
+
     if (KV_URL && KV_TOKEN) {
       // Production: store in Vercel KV
       const listKey = 'newsletter:subscribers'

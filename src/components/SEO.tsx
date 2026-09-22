@@ -255,7 +255,7 @@ export default function SEO({
       })
       document.head.appendChild(personScript)
     }
-  }, [fullTitle, description, keywords, image, fullUrl, type, author, publishedTime, modifiedTime, section, noindex, faq])
+  }, [title, url, fullTitle, description, keywords, image, fullUrl, type, author, publishedTime, modifiedTime, section, noindex, faq])
 
   return null
 }
