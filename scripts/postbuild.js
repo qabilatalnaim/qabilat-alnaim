@@ -13,7 +13,7 @@
  */
 
 import { createServer } from 'http'
-import { copyFileSync, existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs'
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs'
 import { resolve, dirname, extname, join, normalize } from 'path'
 import { fileURLToPath } from 'url'
 import { chromium } from 'playwright'
@@ -44,6 +44,7 @@ if (!existsSync(indexPath)) {
 const STATIC_ROUTES = [
   '/',
   '/badia',
+  '/search',
   '/history',
   '/camels',
   '/horses',
@@ -189,10 +190,6 @@ async function prerenderRoute(browser, route) {
 
 async function main() {
   try {
-    // Preserve GitHub Pages fallback.
-    copyFileSync(indexPath, notFoundPath)
-    console.log('✅ Copied index.html → 404.html')
-
     const server = await startStaticServer()
 
     let browser
@@ -215,6 +212,19 @@ async function main() {
 
       for (const route of STATIC_ROUTES) {
         await prerenderRoute(browser, route)
+      }
+
+      const notFoundPage = await browser.newPage()
+      try {
+        await notFoundPage.goto(BASE_URL + '/__not-found__', {
+          waitUntil: 'networkidle',
+          timeout: 60000,
+        })
+
+        writeFileSync(notFoundPath, await notFoundPage.content(), 'utf8')
+        console.log('Generated real 404.html')
+      } finally {
+        await notFoundPage.close()
       }
 
       console.log('\n✅ Static prerender completed.')
